@@ -1,0 +1,14 @@
+{
+  "name": "graphql_playground",
+  "version": "1.0.0",
+  "description": "A GraphQL learning area.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "S.R. Aman",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

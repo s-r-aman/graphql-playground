@@ -3,12 +3,15 @@ const graphqlHTTP = require('express-graphql');
 const mongoose = require('mongoose');
 const schema = require('./schema/schema');
 const { mongoDBUri } = require('./config/config');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 mongoose.connect(mongoDBUri);
 mongoose.connection.once('open', () => console.log('Connected to Database'));
+
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Hello GraphQL');

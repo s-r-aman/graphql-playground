@@ -1,29 +1,47 @@
-import React, { Component } from 'react';
-import { gql } from 'apollo-boost';
+import React, { Component, Fragment as Frag } from 'react';
 import { graphql } from 'react-apollo';
 
-const getBooksQuery = gql`
-    {
-        books {
-            name
-            id
-        }
-    }
-`;
+import { getBooksQuery } from './../query';
+
+import BookDetail from './../BookDetail/BookDetail';
 
 class BookList extends Component {
-    displayBook = () => {
-        const {
-            data: { loading, books }
-        } = this.props;
-        if (loading) {
-            return <div>Data is loading ...</div>;
-        }
-        return <ul>{books.map(({ name, id }) => <li key={id}>{name}</li>)}</ul>;
-    };
-    render () {
-        return this.displayBook();
+  constructor(props) {
+    super(props);
+    this.state = { selected: null };
+  }
+  displayBook = () => {
+    const {
+      data: { loading, books }
+    } = this.props;
+    if (loading) {
+      return <div>Data is loading ...</div>;
     }
+    return (
+      <ul>
+        {books.map(({ name, id }) => (
+          <li key={id}>
+            <a
+              onClick={e => {
+                e.preventDefault();
+                this.setState(() => ({ selected: id }));
+              }}
+            >
+              {name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  render() {
+    return (
+      <Frag>
+        {this.displayBook()}
+        <BookDetail id={this.state.selected} />
+      </Frag>
+    );
+  }
 }
 
 export default graphql(getBooksQuery)(BookList);

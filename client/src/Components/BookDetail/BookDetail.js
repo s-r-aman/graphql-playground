@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 
 import { getBookQuery } from './../query';
@@ -29,6 +30,10 @@ class BookDetails extends Component {
     return this.displayBookDetail();
   }
 }
+
+BookDetails.propTypes = {
+  book: PropTypes.string
+};
 
 export default graphql(getBookQuery, {
   options: ({ id }) => ({ variables: { id } })

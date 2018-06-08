@@ -18,7 +18,7 @@ class BookDetails extends Component {
           <h2>{name}</h2>
           <p>{genre}</p>
           <p>{authorName}</p>
-          <p>All of the books by this autor are - </p>
+          <p>All of the books by this author are - </p>
           <ul>{authorBooks.map(({ id, name }) => <li key={id}>{name}</li>)}</ul>
         </div>
       );
@@ -32,7 +32,16 @@ class BookDetails extends Component {
 }
 
 BookDetails.propTypes = {
-  book: PropTypes.string
+  data: PropTypes.shape({
+    book: PropTypes.shape({
+      name: PropTypes.string,
+      genre: PropTypes.string,
+      author: PropTypes.shape({
+        name: PropTypes.string,
+        books: PropTypes.array
+      })
+    })
+  }).isRequired
 };
 
 export default graphql(getBookQuery, {
